@@ -1,0 +1,59 @@
+import random
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+        if (
+            not self.min_stack
+            or value <= self.min_stack[-1]
+        ):
+            self.min_stack.append(value)
+
+    def pop(self):
+
+        if not self.stack:
+            return "Stack is empty"
+
+        removed = self.stack.pop()
+
+        if removed == self.min_stack[-1]:
+            self.min_stack.pop()
+
+        return removed
+
+    def get_min(self):
+
+        if not self.min_stack:
+            return "Stack is empty"
+
+        return self.min_stack[-1]
+
+min_stack = MinStack()
+
+random_values = [random.randint(1, 100) for _ in range(10)]
+
+print("Random Values:", random_values)
+
+print("\nPushing Values:\n")
+
+for value in random_values:
+
+    min_stack.push(value)
+
+    print(
+        f"Pushed: {value} | Current Min: {min_stack.get_min()}"
+    )
+
+print("\nPopping Values:\n")
+
+for _ in range(5):
+
+    removed = min_stack.pop()
+
+    print(
+        f"Popped: {removed} | Current Min: {min_stack.get_min()}"
+    )
